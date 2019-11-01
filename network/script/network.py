@@ -14,7 +14,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import tensorflow as tf
-from SketchCNN.utils.util_func import cropconcat_layer
+from utils.util_func import cropconcat_layer
 import tensorflow.contrib.slim as slim
 import logging
 

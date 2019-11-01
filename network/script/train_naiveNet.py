@@ -19,9 +19,9 @@ from random import randint
 import argparse
 
 import tensorflow as tf
-from SketchCNN.script.loader import SketchReader
-from SketchCNN.script.network import SKETCHNET
-from SketchCNN.utils.util_func import slice_tensor, make_dir, dump_params
+from loader import SketchReader
+from network import SKETCHNET
+from utils.util_func import slice_tensor, make_dir, dump_params
 
 # Hyper Parameters
 hyper_params = {

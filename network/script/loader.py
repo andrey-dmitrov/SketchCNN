@@ -16,7 +16,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import tensorflow as tf
-from SketchCNN.libs import decode_block
+from libs import decode_block
 
 
 class SketchReader(object):
