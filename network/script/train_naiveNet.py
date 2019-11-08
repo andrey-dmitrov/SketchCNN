@@ -551,6 +551,7 @@ def train_net():
         # reg_weight init
         cur_weight = hyper_params['regWeight']
         for titr in range(hyper_params['maxIter']):
+            print(titr)
 
             # update regularization weight
             # # 4 gpus
@@ -558,13 +559,13 @@ def train_net():
             #     cur_weight *= 3.985
             #     cur_weight = min(cur_weight, 2.0)
             # 2 gpus
-            if titr % 10000 == 0 and titr > 0:
-                cur_weight *= 3.275
-                cur_weight = min(cur_weight, 2.0)
+            # ~ if titr % 10000 == 0 and titr > 0:
+                # ~ cur_weight *= 3.275
+                # ~ cur_weight = min(cur_weight, 2.0)
             # # 1 gup
-            # if titr % 10000 == 0 and titr > 0:
-            #     cur_weight *= 1.738
-            #     cur_weight = min(cur_weight, 2.0)
+            if titr % 10000 == 0 and titr > 0:
+                cur_weight *= 1.738
+                cur_weight = min(cur_weight, 2.0)
 
             # Validation
             if titr % hyper_params['exeValStep'] == 0:

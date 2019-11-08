@@ -1,5 +1,11 @@
-#ifdef _WITH_GPU_SUPPORT
+//~ #ifdef _WITH_GPU_SUPPORT
+
 #include "trained_network.h"
+#include "tensorflow/core/platform/file_system.h"
+
+#include <experimental/filesystem>
+
+//~ using namespace tensorflow;
 
 SketchModel::SketchModel()
 {
@@ -19,6 +25,19 @@ SketchModel::~SketchModel()
 	if (m_session) delete m_session;
 }
 
+static std::vector<std::string>
+split_string(const std::string& s, char delimiter)
+{
+   std::vector<std::string> tokens;
+   std::string token;
+   std::istringstream tokenStream(s);
+   while (std::getline(tokenStream, token, delimiter))
+   {
+      tokens.push_back(token);
+   }
+   return tokens;
+}
+
 void SketchModel::load_config_and_prebuild_network(std::string & conf_fn, int h, int w)
 {
 	std::ifstream in(conf_fn);
@@ -35,7 +54,12 @@ void SketchModel::load_config_and_prebuild_network(std::string & conf_fn, int h,
 	output_node_names.clear();
 
 	// set model directory
-	model_dir = FileSystem::dir_name(conf_fn);
+	//~ model_dir = FileSystem::dir_name(conf_fn);
+
+	model_dir = std::experimental::filesystem::path(conf_fn);
+    //~ printf("conf_fn %s, model_dir %s\n", conf_fn, model_dir);
+    std::cout << "conf_fn: " << conf_fn << std::endl;
+    std::cout << "model_dir: " << model_dir << std::endl;
 
 	iH = h;
 	iW = w;
@@ -70,7 +94,7 @@ void SketchModel::load_config_and_prebuild_network(std::string & conf_fn, int h,
 		while (std::getline(m_model_in, content))
 		{
 			std::vector<std::string> sub_strs;
-			split_string(content, ' ', sub_strs);
+			sub_strs = split_string(content, ' ');
 
 			if (sub_strs[0].compare("Input:") == 0)
 			{
@@ -171,14 +195,15 @@ bool SketchModel::warmup_network()
 	}
 
 	// predict
-	std::vector<std::vector<float>> net_outputs;
-	if (!predict_output(std::vector<int>(), net_outputs))
-	{
-		std::cout << "Error: cannot predict shape, please check tensor filling!!!" << std::endl;
-		return false;
-	}
-	std::cout << "done\n" << std::endl;
-	return true;
+	//~ std::vector<std::vector<float>> net_outputs;
+    //~ std::vector<int> nodes_idx;
+	//~ if (!predict_output(&nodes_idx, net_outputs))
+	//~ {
+		//~ std::cout << "Error: cannot predict shape, please check tensor filling!!!" << std::endl;
+		//~ return false;
+	//~ }
+	//~ std::cout << "done\n" << std::endl;
+	//~ return true;
 }
 
 bool SketchModel::set_input_tensor(std::vector<std::vector<float>>& data)
@@ -252,5 +277,10 @@ bool SketchModel::predict_output(std::vector<int>& nodes_idx, std::vector<std::v
 	return true;
 }
 
+int
+main(int argc, char **argv)
+{
+    SketchModel sketch();
+}
 
-#endif
+//~ #endif

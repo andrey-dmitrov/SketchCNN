@@ -1,4 +1,4 @@
-#ifdef _WITH_GPU_SUPPORT
+//~ #ifdef _WITH_GPU_SUPPORT
 
 #pragma once
 
@@ -56,4 +56,4 @@ private:
 	std::vector<std::pair<std::string, tensorflow::Tensor>> m_inputs;			//! input name and tensor pairs
 };
 
-#endif
+//~ #endif

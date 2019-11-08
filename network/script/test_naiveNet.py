@@ -18,9 +18,9 @@ import logging
 import argparse
 
 import tensorflow as tf
-from SketchCNN.script.network import SKETCHNET
-from SketchCNN.script.loader import SketchReader
-from SketchCNN.utils.util_func import slice_tensor, make_dir, dump_params
+from network import SKETCHNET
+from loader import SketchReader
+from utils.util_func import slice_tensor, make_dir, dump_params
 import cv2
 import numpy as np
 
@@ -254,32 +254,32 @@ def test_net():
 
                 # Write img out
                 if titr < 200:
-					fn1 = os.path.join(out_img_dir, 'gt_depth_' + str(titr) + '.exr')
-					fn2 = os.path.join(out_img_dir, 'fwd_depth_' + str(titr) + '.exr')
-					fn3 = os.path.join(out_img_dir, 'gt_normal_' + str(titr) + '.exr')
-					fn4 = os.path.join(out_img_dir, 'fwd_normal_' + str(titr) + '.exr')
+                    fn1 = os.path.join(out_img_dir, 'gt_depth_' + str(titr) + '.exr')
+                    fn2 = os.path.join(out_img_dir, 'fwd_depth_' + str(titr) + '.exr')
+                    fn3 = os.path.join(out_img_dir, 'gt_normal_' + str(titr) + '.exr')
+                    fn4 = os.path.join(out_img_dir, 'fwd_normal_' + str(titr) + '.exr')
 
-					out_gt_d = t_gt_depth[0, :, :, :]
-					out_gt_d.astype(np.float32)
-					out_gt_d = np.flip(out_gt_d, 0)
-					cv2.imwrite(fn1, out_gt_d)
+                    out_gt_d = t_gt_depth[0, :, :, :]
+                    out_gt_d.astype(np.float32)
+                    out_gt_d = np.flip(out_gt_d, 0)
+                    cv2.imwrite(fn1, out_gt_d)
 
-					out_f_d = t_f_depth[0, :, :, :]
-					out_f_d.astype(np.float32)
-					out_f_d = np.flip(out_f_d, 0)
-					cv2.imwrite(fn2, out_f_d)
+                    out_f_d = t_f_depth[0, :, :, :]
+                    out_f_d.astype(np.float32)
+                    out_f_d = np.flip(out_f_d, 0)
+                    cv2.imwrite(fn2, out_f_d)
 
-					out_gt_normal = t_gt_normal[0, :, :, :]
-					out_gt_normal = out_gt_normal[:, :, [2, 1, 0]]
-					out_gt_normal.astype(np.float32)
-					out_gt_normal = np.flip(out_gt_normal, 0)
-					cv2.imwrite(fn3, out_gt_normal)
+                    out_gt_normal = t_gt_normal[0, :, :, :]
+                    out_gt_normal = out_gt_normal[:, :, [2, 1, 0]]
+                    out_gt_normal.astype(np.float32)
+                    out_gt_normal = np.flip(out_gt_normal, 0)
+                    cv2.imwrite(fn3, out_gt_normal)
 
-					out_f_normal = t_f_normal[0, :, :, :]
-					out_f_normal = out_f_normal[:, :, [2, 1, 0]]
-					out_f_normal.astype(np.float32)
-					out_f_normal = np.flip(out_f_normal, 0)
-					cv2.imwrite(fn4, out_f_normal)
+                    out_f_normal = t_f_normal[0, :, :, :]
+                    out_f_normal = out_f_normal[:, :, [2, 1, 0]]
+                    out_f_normal.astype(np.float32)
+                    out_f_normal = np.flip(out_f_normal, 0)
+                    cv2.imwrite(fn4, out_f_normal)
 
                 titr += 1
                 if titr % 100 == 0:
